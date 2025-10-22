@@ -9,32 +9,25 @@ def install():
         launch.run_pip("install importlib_metadata", "importlib_metadata", live=True)
     from importlib_metadata import version
 
-    if launch.is_installed("tensorrt"):
-        if not version("tensorrt") == "9.0.1.post11.dev4":
-            launch.run(
-                ["python", "-m", "pip", "uninstall", "-y", "tensorrt"],
-                "removing old version of tensorrt",
-            )
-
     if not launch.is_installed("tensorrt"):
         print("TensorRT is not installed! Installing...")
         launch.run_pip(
-            "install nvidia-cudnn-cu11==8.9.4.25 --no-cache-dir", "nvidia-cudnn-cu11"
+            "install nvidia_cudnn_cu13==9.14.0.64 --no-cache-dir", "nvidia-cudnn-cu13"
         )
         launch.run_pip(
-            "install --pre --extra-index-url https://pypi.nvidia.com tensorrt==9.0.1.post11.dev4 --no-cache-dir",
+            "install --extra-index-url https://pypi.nvidia.com tensorrt==10.13.3.9 --no-cache-dir",
             "tensorrt",
             live=True,
         )
         launch.run(
-            ["python", "-m", "pip", "uninstall", "-y", "nvidia-cudnn-cu11"],
+            ["python", "-m", "pip", "uninstall", "-y", "nvidia-cudnn-cu13"],
             "removing nvidia-cudnn-cu11",
         )
 
-    if launch.is_installed("nvidia-cudnn-cu11"):
-        if version("nvidia-cudnn-cu11") == "8.9.4.25":
+    if launch.is_installed("nvidia-cudnn-cu13"):
+        if version("nvidia-cudnn-cu13") == "9.14.0.64":
             launch.run(
-                ["python", "-m", "pip", "uninstall", "-y", "nvidia-cudnn-cu11"],
+                ["python", "-m", "pip", "uninstall", "-y", "nvidia-cudnn-cu13"],
                 "removing nvidia-cudnn-cu11",
             )
 
