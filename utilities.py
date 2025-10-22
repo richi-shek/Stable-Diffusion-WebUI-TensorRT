@@ -293,7 +293,7 @@ class Engine:
         nvtx.range_push("allocate_buffers")
         for idx in range(self.engine.num_io_tensors):
             binding = self.engine[idx]
-            tensor_name = engine.get_tensor_name(idx)
+            tensor_name = self.engine.get_tensor_name(idx)
             if shape_dict and binding in shape_dict:
                 shape = shape_dict[binding].shape
             else:
