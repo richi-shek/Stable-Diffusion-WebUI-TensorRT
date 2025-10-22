@@ -61,7 +61,7 @@ def install():
     if not launch.is_installed("optimum"):
         print("Optimum is not installed! Installing...")
         launch.run_pip(
-            "install optimum",
+            "install optimum==1.27.0",
             "optimum",
             live=True,
         )
