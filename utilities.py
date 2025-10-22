@@ -324,8 +324,8 @@ class Engine:
     def __str__(self):
         out = ""
         for opt_profile in range(self.engine.num_optimization_profiles):
-            for binding_idx in range(self.engine.num_bindings):
-                name = self.engine.get_binding_name(binding_idx)
-                shape = self.engine.get_profile_shape(opt_profile, name)
+            for binding in range(self.engine.num_io_tensors):
+                name = self.engine.get_tensor_name(binding)
+                shape = self.engine.get_tensor_profile_shape(name, opt_profile)
                 out += f"\t{name} = {shape}\n"
         return out
