@@ -297,7 +297,7 @@ class Engine:
             if shape_dict and binding in shape_dict:
                 shape = shape_dict[binding].shape
             else:
-                shape = self.context.get_binding_shape(idx)
+                shape = self.context.get_tensor_shape(tensor_name)
             dtype = trt.nptype(self.engine.get_tensor_dtype(tensor_name))
             if self.engine.get_tensor_mode(tensor_name) == trt.TensorIOMode.INPUT:
                 self.context.set_input_shape(tensor_name, shape)
