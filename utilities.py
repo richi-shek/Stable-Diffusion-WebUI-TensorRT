@@ -300,7 +300,10 @@ class Engine:
                 shape = self.context.get_binding_shape(idx)
             dtype = trt.nptype(self.engine.get_tensor_dtype(tensor_name))
             if self.engine.get_tensor_mode(tensor_name) == trt.TensorIOMode.INPUT:
-                self.context.set_binding_shape(idx, shape)
+                try:
+                    self.context.set_binding_shape(idx, shape)
+                except:
+                    breakpoint()
             tensor = torch.empty(
                 tuple(shape), dtype=numpy_to_torch_dtype_dict[dtype]
             ).to(device=device)
