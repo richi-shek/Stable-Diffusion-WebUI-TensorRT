@@ -293,12 +293,13 @@ class Engine:
         nvtx.range_push("allocate_buffers")
         for idx in range(self.engine.num_io_tensors):
             binding = self.engine[idx]
+            tensor_name = engine.get_tensor_name(idx)
             if shape_dict and binding in shape_dict:
                 shape = shape_dict[binding].shape
             else:
                 shape = self.context.get_binding_shape(idx)
-            dtype = trt.nptype(self.engine.get_binding_dtype(binding))
-            if self.engine.binding_is_input(binding):
+            dtype = trt.nptype(self.engine.get_tensor_dtype(tensor_name))
+            if self.engine.get_tensor_mode(tensor_name) == trt.TensorIOMode.INPUT:
                 self.context.set_binding_shape(idx, shape)
             tensor = torch.empty(
                 tuple(shape), dtype=numpy_to_torch_dtype_dict[dtype]
